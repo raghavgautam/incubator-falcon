@@ -11,13 +11,16 @@
 #  limitations under the License.
 
 env:
-  - MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m -noverify"
+  global:
+    - TERM=dumb
+    - JAVA_OPTS="-Xmx4096m -XX:MaxPermSize=1024m -noverify"
 
 language: java
 jdk:
   - oraclejdk7
   - oraclejdk8
-script: mvn clean test
+install: mvn install --quiet -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: mvn clean test --quiet -B -V
 sudo: false
 cache:
   directories:
